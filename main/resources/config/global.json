@@ -1,0 +1,12 @@
+{
+    "applicationName" : "helloword",
+    "applicationId": "55598fd560b2f98aa901b619",
+    "applicationKey": "dWhNN2V0eVlYNTdBSDF2elJKUHhpUQ",
+    "lang" : "java",
+    "java-main": "Main",
+    "package-hook" : "hook",
+    "package-entity" : "bean",
+    "global": {
+        "zVersion": "0.2.1"
+    }
+}
