@@ -10,21 +10,9 @@
 
   <dependencies>
     <dependency>
-			<groupId>as.leap</groupId>
-			<artifactId>cloud-code-base</artifactId>
-			<version>2.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>as.leap</groupId>
-			<artifactId>cloud-code-sdk</artifactId>
-			<version>2.3.2</version>
-			<scope>provided</scope>
-		</dependency>
-    <dependency>
       <groupId>as.leap</groupId>
       <artifactId>cloud-code-test</artifactId>
       <version>2.3.2</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
