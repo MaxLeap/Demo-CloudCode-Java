@@ -192,7 +192,7 @@ public class NinjaHook extends LASClassManagerHookBase<Ninja> {
 `"package-hook" : "hook"`
     
 # 使用日志
-    *Console类用来记录日志，你可以在Main, Hook, Handler中使用它*
-    *目前有log，warn，error，debug四个级别*
-    *本地测试不会产生数据库记录，但发布后会产生记录，你可以在后端界面查看你的日志信息*
-    *如果你的function调用频率很高请在发布前尽量去掉调试测试日志以便不必要的日志存储*
+*Console类用来记录日志，你可以在Main, Hook, Handler中使用它*
+*目前有log，warn，error，debug四个级别*
+*本地测试不会产生数据库记录，但发布后会产生记录，你可以在后端界面查看你的日志信息*
+*如果你的function调用频率很高请在发布前尽量去掉调试测试日志以便不必要的日志存储*
