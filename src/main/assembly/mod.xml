@@ -38,6 +38,7 @@
         <exclude>log4j-*.jar</exclude>
         <exclude>slf4j-*.jar</exclude>
         <exclude>cloud-code-*.jar</exclude>
+        <exclude>sdk-data-api-*.jar</exclude>
         <exclude>junit-*.jar</exclude>
       </excludes>
     </fileSet>
