@@ -8,9 +8,22 @@
 
 ```xml
 <dependency>
-    <groupId>as.leap</groupId>
-    <artifactId>cloud-code-test</artifactId>
-    <version>2.2.2</version>
+  <groupId>as.leap</groupId>
+  <artifactId>cloud-code-base</artifactId>
+  <version>2.3.2</version>
+  <scope>provided</scope>
+</dependency>
+<dependency>
+  <groupId>as.leap</groupId>
+  <artifactId>cloud-code-sdk</artifactId>
+  <version>2.3.2</version>
+  <scope>provided</scope>
+</dependency>
+<dependency>
+  <groupId>as.leap</groupId>
+  <artifactId>cloud-code-test</artifactId>
+  <version>2.3.2</version>
+  <scope>test</scope>
 </dependency>
 ```
 
@@ -24,7 +37,7 @@
       
       ```java
       defineFunction("hello", request -> {
-          Response<String> response = new ZResponse<String>(String.class);
+          Response<String> response = new LASResponse<String>(String.class);
           response.setResult(request.parameter(String.class));
           return response;
       });
@@ -38,7 +51,7 @@
       
       ```java
       defineJob("helloJob", request -> {
-          Response response = new ZResponse(String.class);
+          Response response = new LASResponse(String.class);
           response.setResult("hello job");
           return response;
       });
@@ -192,7 +205,11 @@ public class NinjaHook extends LASClassManagerHookBase<Ninja> {
 `"package-hook" : "hook"`
     
 # 使用日志
+
 *Console类用来记录日志，你可以在Main, Hook, Handler中使用它*
+
 *目前有log，warn，error，debug四个级别*
+
 *本地测试不会产生数据库记录，但发布后会产生记录，你可以在后端界面查看你的日志信息*
+
 *如果你的function调用频率很高请在发布前尽量去掉调试测试日志以便不必要的日志存储*
