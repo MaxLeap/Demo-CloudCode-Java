@@ -99,6 +99,7 @@ public class AssistHandler {
 
         // get wallet
         Map params = new HashMap();
+        params.put("uId", "testuid");
         Wallet wallet = walletService.getWallet(params);
         System.out.println(wallet);
 
@@ -147,6 +148,7 @@ public class AssistHandler {
         }
         if (wallet == null){
           wallet = new Wallet();
+          wallet.setuId("testuid");
           SaveMsg saveMsg2 = walletService.create(wallet);
           System.out.println(saveMsg2);
           wallet.setObjectId(saveMsg2.objectId());
