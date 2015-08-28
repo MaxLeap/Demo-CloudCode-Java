@@ -14,7 +14,7 @@ import java.util.Map;
 public class MainTest extends TestCloudCode {
 
 	public MainTest() throws Exception{
-		super("http://10.10.10.176:8080");
+		super("http://10.10.10.193:8080");
 	}
 
 	@Test
@@ -104,5 +104,17 @@ public class MainTest extends TestCloudCode {
 		Assert.assertTrue(response.succeeded());
 		Assert.assertEquals("鸣人_new", response.getResult().toString());
 	}
+
+  @Test
+  public void helloCounter(){
+    Response response = runFunction("helloCounter","");
+    Assert.assertTrue(response.succeeded());
+  }
+
+  @Test
+  public void helloPushMsg(){
+    Response response = runFunction("helloPushMsg","");
+    Assert.assertTrue(response.succeeded());
+  }
 
 }

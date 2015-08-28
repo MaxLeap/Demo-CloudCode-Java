@@ -2,6 +2,7 @@ import as.leap.code.*;
 import as.leap.code.impl.*;
 import handler.AssistHandler;
 import handler.NinjaHandler;
+import handler.ThemisHandler;
 import handler._UserHandler;
 
 import java.util.Map;
@@ -51,6 +52,9 @@ public class Main extends LoaderBase implements Loader {
 		defineFunction("receiptTransaction", assistHandler.receiptTransaction());
 
     defineFunction("walletTransaction", assistHandler.walletTransaction());
+    ThemisHandler themisHandler = new ThemisHandler();
+    defineFunction("helloPushMsg",themisHandler.helloPushMsg());
+    defineFunction("helloCounter",themisHandler.helloCounter());
 	}
 
 }

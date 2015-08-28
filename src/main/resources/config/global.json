@@ -1,10 +1,10 @@
 {
-    "applicationName" : "helloword",
+    "applicationName" : "helloword",//应用名称
     "applicationId": "55598fd560b2f98aa901b619",
     "applicationKey": "dWhNN2V0eVlYNTdBSDF2elJKUHhpUQ",
-    "lang" : "java",
-    "javaMain": "Main",
+    "lang" : "java",//开发语言
+    "javaMain": "Main",//程序入口
     "packageHook" : "hook",
     "packageClasses" : "bean",
-    "version":"0.2.1"
+    "version":"0.3.1"
 }
