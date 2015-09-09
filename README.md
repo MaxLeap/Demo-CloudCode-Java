@@ -10,19 +10,19 @@
 <dependency>
   <groupId>as.leap</groupId>
   <artifactId>cloud-code-base</artifactId>
-  <version>2.3.2</version>
+  <version>2.3.6</version>
   <scope>provided</scope>
 </dependency>
 <dependency>
   <groupId>as.leap</groupId>
   <artifactId>cloud-code-sdk</artifactId>
-  <version>2.3.2</version>
+  <version>2.3.6</version>
   <scope>provided</scope>
 </dependency>
 <dependency>
   <groupId>as.leap</groupId>
   <artifactId>cloud-code-test</artifactId>
-  <version>2.3.2</version>
+  <version>2.3.6</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -85,9 +85,11 @@
     这里我们简单实现一个业务逻辑，提交一个忍者名称，生成一个忍者本体和它的50个影分身，找出其中第50个分身，击杀其余分身和本体，让它成为新的本体
 
     ```java
-    public ZHandler<Request, Response> helloNinja() {
-        LASClassManager<Ninja> ninjaZEntityManager = LASClassManagerFactory.getManager(Ninja.class);
-        return request -> {
+    public LASHandler<Request, Response> helloNinja() {
+        final LASClassManager<Ninja> ninjaZEntityManager = LASClassManagerFactory.getManager(Ninja.class);
+        return new LASHandler<Request, Response>() {
+          @Override
+          public Response handle(Request request) {
             Ninja ninja = request.parameter(Ninja.class);
             String name = ninja.getName();
             //产生本体
@@ -97,11 +99,11 @@
             //产生50个分身
             List<String> cloneObjectIds = new ArrayList<>();
             for (int i = 1; i <= 50; i++) {
-                ninja.setName(name + "_" + i);
-                SaveResult<Ninja> cloneSave = ninjaZEntityManager.create(ninja);
-                String cloneObjectId = cloneSave.getSaveMessage().objectId().toString();
-                cloneObjectIds.add(cloneObjectId);
-                LOGGER.info("多重影分身：" + cloneSave.getSaveMessage().objectId().toString());
+              ninja.setName(name + "_" + i);
+              SaveResult<Ninja> cloneSave = ninjaZEntityManager.create(ninja);
+              String cloneObjectId = cloneSave.getSaveMessage().objectId().toString();
+              cloneObjectIds.add(cloneObjectId);
+              LOGGER.info("多重影分身：" + cloneSave.getSaveMessage().objectId().toString());
             }
             //找出第50个分身
             LASQuery sunQuery = LASQuery.instance();
@@ -125,8 +127,10 @@
             Ninja ninja_new = ninjaZEntityManager.findById(ninja_50.objectIdString());
             Response<String> response = new LASResponse<>(String.class);
             response.setResult(ninja_new.getName());
+    
             ninjaZEntityManager.delete(ninja_50.objectIdString());
             return response;
+          }
         };
     }
     ```

@@ -5,6 +5,9 @@ import as.leap.code.impl.LASResponse;
 import as.leap.code.impl.PushMsg;
 import as.leap.code.impl.ThemisImpl;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * User：poplar
  * Date：15/8/26
@@ -54,6 +57,33 @@ public class ThemisHandler {
         System.out.println("getAndAdd="+count9);
         Long count10 = themis.get(counterEntity);
         System.out.println("get=" + count10);
+        LASResponse response = new LASResponse(String.class);
+        response.setResult("OK");
+        return response;
+      }
+    };
+  }
+
+  public LASHandler<Request, Response> helloLock() {
+    return new LASHandler<Request, Response>() {
+      @Override
+      public Response handle(Request request) {
+        ThemisImpl themis = new ThemisImpl();
+
+
+        ExecutorService exec = Executors.newFixedThreadPool(30);
+        for (int i = 0; i <= 99; i++)  {
+          Runnable runnable = new Runnable(){
+            @Override
+            public void run() {
+              System.out.println("##");
+            }
+          };
+          exec.execute(runnable);
+        }
+
+
+        themis.getLock("myLock");
         LASResponse response = new LASResponse(String.class);
         response.setResult("OK");
         return response;

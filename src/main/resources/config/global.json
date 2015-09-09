@@ -1,7 +1,7 @@
 {
     "applicationName" : "helloword",//应用名称
-    "applicationId": "55598fd560b2f98aa901b619",
-    "applicationKey": "dWhNN2V0eVlYNTdBSDF2elJKUHhpUQ",
+    "applicationId": "5591fc6060b2bf1451cc6ee8",
+    "applicationKey": "R0lkTUJBREs5TThqSjA5RjhBVFN4QQ",
     "lang" : "java",//开发语言
     "javaMain": "Main",//程序入口
     "packageHook" : "hook",
