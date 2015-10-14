@@ -1,10 +1,14 @@
 package bean;
 
-import as.leap.las.sdk.LASObject;
+import com.maxleap.las.sdk.LASObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Map;
 
+/**
+ * 系统自建class实体：用户表
+ * 需要继承LASObject类，通过jackson来实现序列化和反序列化
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class _User extends LASObject {
 

@@ -1,14 +1,14 @@
 package handler;
 
-import as.leap.code.LASHandler;
-import as.leap.code.Request;
-import as.leap.code.Response;
-import as.leap.code.assist.AssistLASClassManager;
-import as.leap.code.assist.classes.Coin;
-import as.leap.code.assist.classes.ReceiptRegular;
-import as.leap.code.assist.classes.Wallet;
-import as.leap.code.impl.*;
-import as.leap.las.sdk.*;
+import com.maxleap.code.LASHandler;
+import com.maxleap.code.Request;
+import com.maxleap.code.Response;
+import com.maxleap.code.assist.AssistLASClassManager;
+import com.maxleap.code.assist.classes.Coin;
+import com.maxleap.code.assist.classes.ReceiptRegular;
+import com.maxleap.code.assist.classes.Wallet;
+import com.maxleap.code.impl.*;
+import com.maxleap.las.sdk.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,10 @@ import java.util.Map;
  */
 public class AssistHandler {
 
+  /**
+   * 测试基础金币系统CRUD
+   * @return
+   */
   public LASHandler<Request, Response> helloAssist(){
     return new LASHandler<Request, Response>() {
       @Override
@@ -58,6 +62,10 @@ public class AssistHandler {
     };
   }
 
+  /**
+   * 测试收据相关API
+   * @return
+   */
   public LASHandler<Request, Response> receiptTransaction(){
     return new LASHandler<Request, Response>() {
       @Override
@@ -112,6 +120,10 @@ public class AssistHandler {
     };
   }
 
+  /**
+   * 测试钱包相关API
+   * @return
+   */
   public LASHandler<Request, Response> walletTransaction(){
     return new LASHandler<Request, Response>() {
       @Override

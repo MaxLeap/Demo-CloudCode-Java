@@ -1,11 +1,8 @@
-import as.leap.code.Response;
-import as.leap.code.impl.LASJsonParser;
-import as.leap.code.test.framework.TestCloudCode;
+import com.maxleap.code.Response;
+import com.maxleap.code.impl.LASJsonParser;
+import com.maxleap.code.test.framework.TestCloudCode;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * User：poplar
@@ -14,27 +11,15 @@ import java.util.Map;
 public class MainTest extends TestCloudCode {
 
 	public MainTest() throws Exception{
-		super("http://10.10.10.193:8080");
+		super("http://api.leap.as/2.0");
 	}
 
 	@Test
 	public void hello(){
-		Map<String,Object> map = new HashMap<>();
-		map.put("name","Hanmemmei");
-		map.put("age",18);
-		map.put("male",false);
-
-		Map<String,Object> map2 = new HashMap<>();
-		map2.put("name","Lilei");
-		map2.put("age",18);
-		map2.put("male",false);
-
-		map.put("father",map2);
 		String json = "{\"name\":\"jack\",\"ids\":[\"aa\",\"bb\"]}";
 		Response response = runFunction("hello", json);
 		if (response.succeeded()){
-			System.out.println(LASJsonParser.asJson(response.getResult()));
-//			Assert.assertEquals("HanMeimei", response.getResult());
+			System.out.println(response.getResult());
 		} else {
 			Assert.fail(response.getError());
 		}
@@ -45,12 +30,19 @@ public class MainTest extends TestCloudCode {
 		runJob("helloJob",null);
   }
 
+  @Test
+  public void helloNinja(){
+    String params = "{\"name\":\"鸣人\"}";
+    Response response = runFunction("helloNinja",params);
+    Assert.assertTrue(response.succeeded());
+    Assert.assertEquals("鸣人_new", response.getResult().toString());
+  }
+
 	@Test
 	public void helloUser(){
 		Response response = runFunction("helloUser", "");
 		if (response.succeeded()){
 			System.out.println(LASJsonParser.asJson(response.getResult()));
-//			Assert.assertEquals("HanMeimei", response.getResult());
 		} else {
 			Assert.fail(response.getError());
 		}
@@ -61,7 +53,6 @@ public class MainTest extends TestCloudCode {
 		Response response = runFunction("helloUserDelete", "");
 		if (response.succeeded()){
 			System.out.println(LASJsonParser.asJson(response.getResult()));
-//			Assert.assertEquals("HanMeimei", response.getResult());
 		} else {
 			Assert.fail(response.getError());
 		}
@@ -95,14 +86,6 @@ public class MainTest extends TestCloudCode {
 		} else {
 			Assert.fail(response.getError());
 		}
-	}
-
-	@Test
-	public void helloNinja(){
-		String params = "{\"name\":\"鸣人\"}";
-		Response response = runFunction("helloNinja",params);
-		Assert.assertTrue(response.succeeded());
-		Assert.assertEquals("鸣人_new", response.getResult().toString());
 	}
 
   @Test

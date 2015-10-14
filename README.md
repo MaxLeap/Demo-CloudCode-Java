@@ -8,22 +8,10 @@
 
 ```xml
 <dependency>
-  <groupId>as.leap</groupId>
-  <artifactId>cloud-code-base</artifactId>
-  <version>2.3.6</version>
-  <scope>provided</scope>
-</dependency>
-<dependency>
-  <groupId>as.leap</groupId>
-  <artifactId>cloud-code-sdk</artifactId>
-  <version>2.3.6</version>
-  <scope>provided</scope>
-</dependency>
-<dependency>
-  <groupId>as.leap</groupId>
+  <groupId>com.maxleap</groupId>
   <artifactId>cloud-code-test</artifactId>
-  <version>2.3.6</version>
-  <scope>test</scope>
+  <version>2.4.0</version>
+  <scope>provided</scope>
 </dependency>
 ```
 
@@ -80,7 +68,7 @@
         
         *推荐继承LASObject对象，每张表初始化后都会自动产生几个默认的字段如objectId、createdAt、updatedAt、ACL*
         **所有自定义实体必须在同一个package下，并在global.json配置中标注该package选项，如下：**
-        `"package-entity" : "bean"`
+        `"packageClasses" : "bean"`
 2. 操作Class实现你的业务
     这里我们简单实现一个业务逻辑，提交一个忍者名称，生成一个忍者本体和它的50个影分身，找出其中第50个分身，击杀其余分身和本体，让它成为新的本体
 
@@ -127,7 +115,6 @@
             Ninja ninja_new = ninjaZEntityManager.findById(ninja_50.objectIdString());
             Response<String> response = new LASResponse<>(String.class);
             response.setResult(ninja_new.getName());
-    
             ninjaZEntityManager.delete(ninja_50.objectIdString());
             return response;
           }
@@ -160,11 +147,11 @@
     }
   ```
 
-  ***新建单元测试，TestCloudCode***
+  ***新建单元测试，继承TestCloudCode***
   
-  ***测试用例运行在本地，会自动代理uat环境的测试数据***
+  ***测试用例运行在本地，会自动代理产品环境的测试数据***
   
-  ***请确保测试用例本地全部通过再进行发布，否则你的服务将无法生效***
+  ***请确保测试用例本地全部通过再进行发布，否则你的服务将可能无法发布成功***
 
 # 使用SDK实现HOOK操作
 ***内建Collection和自定义Collection均支持Hook，内建Collection原有的限制（_User用户名和密码必填，_Installation的deviceToken和installationId二选一）依然有效。***
@@ -174,30 +161,22 @@
 ```java
 @ClassManager("Ninja")
 public class NinjaHook extends LASClassManagerHookBase<Ninja> {
-    @Override
-    public BeforeResult<Ninja> beforeCreate(Ninja ninja) {
-      LASClassManager<Ninja> ninjaZEntityManager = LASClassManagerFactory.getManager(Ninja.class);
-      //创建忍者前验证是否重名了
-      LASQuery sunQuery = LASQuery.instance();
-      sunQuery.equalTo("name", ninja.getName());
-      FindMsg<Ninja> findMsg = ninjaZEntityManager.find(sunQuery);
-      if (findMsg.results() != null && findMsg.results().size() > 0) return new BeforeResult<>(ninja,false,"ninja name repeated");
-      return new BeforeResult<>(ninja, true);
-    }
-    @Override
-    public AfterResult afterCreate(BeforeResult<Ninja> beforeResult, SaveMsg saveMessage) {
-      LASClassManager<Ninja> ninjaZEntityManager = LASClassManagerFactory.getManager(Ninja.class);
-      //创建完忍者后修改这个忍者的ACL权限
-        Map<String,Map<String,Boolean>> acl = new HashMap<>();
-        Map<String,Boolean> value = new HashMap<>();
-        value.put("read", true);
-        value.put("write", true);
-        acl.put(saveMessage.objectId().toString(), value);
-      LASUpdate update = new LASUpdate().set("ACL", acl);
-      ninjaZEntityManager.update(saveMessage.objectId().toString(), update);
-      AfterResult afterResult = new AfterResult(saveMessage);
-        return afterResult;
-    }
+      @Override
+      public BeforeResult<Ninja> beforeCreate(Ninja ninja, UserPrincipal userPrincipal) {
+        LASClassManager<Ninja> ninjaZEntityManager = LASClassManagerFactory.getManager(Ninja.class);
+        //创建忍者前验证是否重名了
+        LASQuery sunQuery = LASQuery.instance();
+        sunQuery.equalTo("name", ninja.getName());
+        FindMsg<Ninja> findMsg = ninjaZEntityManager.find(sunQuery,userPrincipal);
+        if (findMsg.results() != null && findMsg.results().size() > 0) return new BeforeResult<>(ninja,false,"ninja name repeated");
+        return new BeforeResult<>(ninja, true);
+      }
+      @Override
+      public AfterResult afterCreate(BeforeResult<Ninja> beforeResult, SaveMsg saveMessage, UserPrincipal userPrincipal) {
+        //创建完忍者后在服务器上记录日志，这条日志可以通过console后台查看到
+        logger.info("create Ninja complete use " + LASJsonParser.asJson(userPrincipal) + ",saveMsg:"+LASJsonParser.asJson(saveMessage));
+    	return new AfterResult(saveMessage);
+      }
 }
 ```
     
@@ -206,14 +185,14 @@ public class NinjaHook extends LASClassManagerHookBase<Ninja> {
 *Hook类上需要添加@ClassManager注解，以便服务器能够识别该HOOK是针对哪个实体的*
 
 *所有Hook必须在同一个package下，并在global.json配置中标注该选项，如下：*
-`"package-hook" : "hook"`
+`"packageHook" : "hook"`
     
 # 使用日志
 
-*Console类用来记录日志，你可以在Main, Hook, Handler中使用它*
+*你可以在Main, Hook, Handler等任意地方中使用日志功能，只需使用com.maxleap.code包下的日志类即可，比如：`Logger logger = LoggerFactory.getLogger(NinjaHook.class);`，而正常的log4j或slf4j日志将不会被远程服务器记录，但可以在本地使用*
 
-*目前有log，warn，error，debug四个级别*
+*目前有info，warn，error，debug四个级别，服务器上只会记录info、warn和error级别的日志*
 
-*本地测试不会产生数据库记录，但发布后会产生记录，你可以在后端界面查看你的日志信息*
+*本地测试不会产生远程数据库日志记录，但发布后会产生记录，你可以在后端界面查看你的日志信息*
 
 *如果你的function调用频率很高请在发布前尽量去掉调试测试日志以便不必要的日志存储*

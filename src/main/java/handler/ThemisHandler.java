@@ -1,9 +1,9 @@
 package handler;
 
-import as.leap.code.*;
-import as.leap.code.impl.LASResponse;
-import as.leap.code.impl.PushMsg;
-import as.leap.code.impl.ThemisImpl;
+import com.maxleap.code.*;
+import com.maxleap.code.impl.LASResponse;
+import com.maxleap.code.impl.PushMsg;
+import com.maxleap.code.impl.ThemisImpl;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,6 +15,10 @@ import java.util.concurrent.Executors;
 public class ThemisHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(NinjaHandler.class);
 
+  /**
+   * 测试消息推送API
+   * @return
+   */
   public LASHandler<Request, Response> helloPushMsg() {
     return new LASHandler<Request, Response>() {
       @Override
@@ -28,6 +32,10 @@ public class ThemisHandler {
     };
   }
 
+  /**
+   * 测试分布式计数器API
+   * @return
+   */
   public LASHandler<Request, Response> helloCounter() {
     return new LASHandler<Request, Response>() {
       @Override
@@ -64,6 +72,10 @@ public class ThemisHandler {
     };
   }
 
+  /**
+   * 测试分布式锁API
+   * @return
+   */
   public LASHandler<Request, Response> helloLock() {
     return new LASHandler<Request, Response>() {
       @Override
