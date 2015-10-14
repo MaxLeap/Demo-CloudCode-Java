@@ -16,9 +16,21 @@
   <dependencies>
     <dependency>
       <groupId>com.maxleap</groupId>
-      <artifactId>cloud-code-test</artifactId>
+      <artifactId>cloud-code-base</artifactId>
       <version>${sdk.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.maxleap</groupId>
+      <artifactId>cloud-code-sdk</artifactId>
+      <version>${sdk.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.maxleap</groupId>
+      <artifactId>cloud-code-test</artifactId>
+      <version>${sdk.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

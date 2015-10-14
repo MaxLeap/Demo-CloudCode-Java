@@ -7,12 +7,24 @@
 添加cloudcode的本地开发测试框架依赖，这样你就可以使用cloudcode提供的服务了
 
 ```xml
-<dependency>
-  <groupId>com.maxleap</groupId>
-  <artifactId>cloud-code-test</artifactId>
-  <version>2.4.0</version>
-  <scope>provided</scope>
-</dependency>
+    <dependency>
+      <groupId>com.maxleap</groupId>
+      <artifactId>cloud-code-base</artifactId>
+      <version>${sdk.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.maxleap</groupId>
+      <artifactId>cloud-code-sdk</artifactId>
+      <version>${sdk.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.maxleap</groupId>
+      <artifactId>cloud-code-test</artifactId>
+      <version>${sdk.version}</version>
+      <scope>test</scope>
+    </dependency>
 ```
 
 *这个依赖包含了基础的SDK客户端和本地单元测试框架*
