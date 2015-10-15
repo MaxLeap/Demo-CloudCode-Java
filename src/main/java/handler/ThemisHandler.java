@@ -1,7 +1,7 @@
 package handler;
 
 import com.maxleap.code.*;
-import com.maxleap.code.impl.LASResponse;
+import com.maxleap.code.impl.MLResponse;
 import com.maxleap.code.impl.PushMsg;
 import com.maxleap.code.impl.ThemisImpl;
 
@@ -19,13 +19,13 @@ public class ThemisHandler {
    * 测试消息推送API
    * @return
    */
-  public LASHandler<Request, Response> helloPushMsg() {
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloPushMsg() {
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
         PushMsg pushMsg = new PushMsg();
         pushMsg.withInstallationId("aaa").withMsg("hello").push();
-        LASResponse response = new LASResponse(String.class);
+        MLResponse response = new MLResponse(String.class);
         response.setResult("OK");
         return response;
       }
@@ -36,8 +36,8 @@ public class ThemisHandler {
    * 测试分布式计数器API
    * @return
    */
-  public LASHandler<Request, Response> helloCounter() {
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloCounter() {
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
         ThemisImpl themis = new ThemisImpl();
@@ -65,7 +65,7 @@ public class ThemisHandler {
         System.out.println("getAndAdd="+count9);
         Long count10 = themis.get(counterEntity);
         System.out.println("get=" + count10);
-        LASResponse response = new LASResponse(String.class);
+        MLResponse response = new MLResponse(String.class);
         response.setResult("OK");
         return response;
       }
@@ -76,8 +76,8 @@ public class ThemisHandler {
    * 测试分布式锁API
    * @return
    */
-  public LASHandler<Request, Response> helloLock() {
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloLock() {
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
         ThemisImpl themis = new ThemisImpl();
@@ -96,7 +96,7 @@ public class ThemisHandler {
 
 
         themis.getLock("myLock");
-        LASResponse response = new LASResponse(String.class);
+        MLResponse response = new MLResponse(String.class);
         response.setResult("OK");
         return response;
       }

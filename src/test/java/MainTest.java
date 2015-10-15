@@ -1,5 +1,5 @@
 import com.maxleap.code.Response;
-import com.maxleap.code.impl.LASJsonParser;
+import com.maxleap.code.impl.MLJsonParser;
 import com.maxleap.code.test.framework.TestCloudCode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,9 +10,9 @@ import org.junit.Test;
  */
 public class MainTest extends TestCloudCode {
 
-	public MainTest() throws Exception{
-		super("http://api.leap.as/2.0");
-	}
+//	public MainTest(){
+//		super("http://api.leap.as/2.0");
+//	}
 
 	@Test
 	public void hello(){
@@ -42,7 +42,7 @@ public class MainTest extends TestCloudCode {
 	public void helloUser(){
 		Response response = runFunction("helloUser", "");
 		if (response.succeeded()){
-			System.out.println(LASJsonParser.asJson(response.getResult()));
+			System.out.println(MLJsonParser.asJson(response.getResult()));
 		} else {
 			Assert.fail(response.getError());
 		}
@@ -52,7 +52,7 @@ public class MainTest extends TestCloudCode {
 	public void helloUserDelete(){
 		Response response = runFunction("helloUserDelete", "");
 		if (response.succeeded()){
-			System.out.println(LASJsonParser.asJson(response.getResult()));
+			System.out.println(MLJsonParser.asJson(response.getResult()));
 		} else {
 			Assert.fail(response.getError());
 		}

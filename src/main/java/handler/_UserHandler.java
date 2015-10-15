@@ -1,10 +1,10 @@
 package handler;
 
 import com.maxleap.code.*;
-import com.maxleap.code.impl.LASResponse;
+import com.maxleap.code.impl.MLResponse;
 import com.maxleap.las.sdk.FindMsg;
-import com.maxleap.las.sdk.LASQuery;
-import com.maxleap.las.sdk.LASUpdate;
+import com.maxleap.las.sdk.MLQuery;
+import com.maxleap.las.sdk.MLUpdate;
 import com.maxleap.las.sdk.UpdateMsg;
 import bean._User;
 
@@ -19,11 +19,11 @@ public class _UserHandler {
    * 测试内建表的CRUD
    * @return
    */
-  public LASHandler<Request, Response> helloUser(){
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloUser(){
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
-        LASClassManager<_User> userZEntityManager = LASClassManagerFactory.getManager(_User.class);
+        MLClassManager<_User> userZEntityManager = MLClassManagerFactory.getManager(_User.class);
         //create
         _User user = new _User();
         user.setUsername("jack2");
@@ -32,7 +32,7 @@ public class _UserHandler {
         System.out.println(saveMsg.getSaveMessage());
 
         //update
-        LASUpdate update = LASUpdate.getUpdate();
+        MLUpdate update = MLUpdate.getUpdate();
         update.set("password","123");
         UpdateMsg updateMsg = userZEntityManager.update(saveMsg.getSaveMessage().objectIdString(), update);
         System.out.println(updateMsg);
@@ -42,14 +42,14 @@ public class _UserHandler {
         System.out.println(deleteResult);
 
         //find
-        LASQuery lasQuery = LASQuery.instance();
+        MLQuery lasQuery = MLQuery.instance();
         lasQuery.equalTo("name", "aa");
         FindMsg<_User> findMsg = userZEntityManager.find(lasQuery);
         System.out.println(findMsg);
 
-        LASResponse LASResponse = new LASResponse(FindMsg.class);
-        LASResponse.setResult(findMsg);
-        return LASResponse;
+        MLResponse MLResponse = new MLResponse(FindMsg.class);
+        MLResponse.setResult(findMsg);
+        return MLResponse;
       }
     };
   }
@@ -58,11 +58,11 @@ public class _UserHandler {
    * 测试内建表的CRUD
    * @return
    */
-  public LASHandler<Request, Response> helloUserDelete(){
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloUserDelete(){
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
-        LASClassManager<_User> userZEntityManager = LASClassManagerFactory.getManager(_User.class);
+        MLClassManager<_User> userZEntityManager = MLClassManagerFactory.getManager(_User.class);
 
         //create
         _User user = new _User();
@@ -86,19 +86,19 @@ public class _UserHandler {
         System.out.println(saveMsg3.getSaveMessage());
 
         //find
-        LASQuery lasQuery = LASQuery.instance();
+        MLQuery lasQuery = MLQuery.instance();
         lasQuery.notEqualTo("username", "");
         lasQuery.setLimit(10);
-        lasQuery.sort(LASQuery.SORT_ASC,"updatedAt");
+        lasQuery.sort(MLQuery.SORT_ASC,"updatedAt");
         FindMsg<_User> findMsg = userZEntityManager.find(lasQuery);
         System.out.println(findMsg);
 
         //deleteBatch
         DeleteResult deleteResult = userZEntityManager.delete(new String[]{saveMsg.getSaveMessage().objectIdString(), saveMsg2.getSaveMessage().objectIdString(), saveMsg3.getSaveMessage().objectIdString()});
         System.out.println(deleteResult);
-        LASResponse LASResponse = new LASResponse(FindMsg.class);
-        LASResponse.setResult(findMsg);
-        return LASResponse;
+        MLResponse MLResponse = new MLResponse(FindMsg.class);
+        MLResponse.setResult(findMsg);
+        return MLResponse;
       }
     };
   }

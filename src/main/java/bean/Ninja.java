@@ -1,15 +1,15 @@
 package bean;
 
 
-import com.maxleap.las.sdk.LASObject;
+import com.maxleap.las.sdk.MLObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * 自定义class实体：忍者表
- * 需要继承LASObject类，通过jackson来实现序列化和反序列化
+ * 需要继承MLObject类，通过jackson来实现序列化和反序列化
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ninja extends LASObject {
+public class Ninja extends MLObject {
 
 	private String name;
 

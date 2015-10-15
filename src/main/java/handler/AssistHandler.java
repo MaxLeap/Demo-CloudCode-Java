@@ -1,9 +1,9 @@
 package handler;
 
-import com.maxleap.code.LASHandler;
+import com.maxleap.code.MLHandler;
 import com.maxleap.code.Request;
 import com.maxleap.code.Response;
-import com.maxleap.code.assist.AssistLASClassManager;
+import com.maxleap.code.assist.AssistMLClassManager;
 import com.maxleap.code.assist.classes.Coin;
 import com.maxleap.code.assist.classes.ReceiptRegular;
 import com.maxleap.code.assist.classes.Wallet;
@@ -23,12 +23,12 @@ public class AssistHandler {
    * 测试基础金币系统CRUD
    * @return
    */
-  public LASHandler<Request, Response> helloAssist(){
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> helloAssist(){
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
-        Response<String> response = new LASResponse<>(String.class);
-        AssistLASClassManager<Coin> coinService = new AssistLASClassManagerImpl<>(Coin.class);
+        Response<String> response = new MLResponse<>(String.class);
+        AssistMLClassManager<Coin> coinService = new AssistMLClassManagerImpl<>(Coin.class);
 
         //create
         Coin coin = new Coin();
@@ -39,17 +39,17 @@ public class AssistHandler {
 
         //findById
         Coin coin2 = coinService.findById(saveMsg.objectIdString());
-        System.out.println(LASJsonParser.asJson(coin2));
+        System.out.println(MLJsonParser.asJson(coin2));
 
         //update
-        LASUpdate update = LASUpdate.getUpdate();
+        MLUpdate update = MLUpdate.getUpdate();
         update.set("name", "mytest_new");
         update.set("desc", "mytestDesc_new");
         UpdateMsg updateMsg = coinService.update(saveMsg.objectIdString(), update);
         System.out.println(updateMsg);
 
         //find
-        LASQuery lasQuery = LASQuery.instance();
+        MLQuery lasQuery = MLQuery.instance();
         lasQuery.equalTo("name", "mytest_new");
         FindMsg<Coin> coinFindMsg = coinService.find(lasQuery);
         System.out.println(coinFindMsg);
@@ -66,15 +66,15 @@ public class AssistHandler {
    * 测试收据相关API
    * @return
    */
-  public LASHandler<Request, Response> receiptTransaction(){
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> receiptTransaction(){
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
-        Response<String> response = new LASResponse<>(String.class);
+        Response<String> response = new MLResponse<>(String.class);
 
-        AssistLASClassManager<Coin> coinService = new AssistLASClassManagerImpl<>(Coin.class);
-        ReceiptRegularLASClassManager receiptRegularService = new ReceiptRegularLASClassManager(ReceiptRegular.class);
-        WalletLASClassManager walletService = new WalletLASClassManager(Wallet.class);
+        AssistMLClassManager<Coin> coinService = new AssistMLClassManagerImpl<>(Coin.class);
+        ReceiptRegularMLClassManager receiptRegularService = new ReceiptRegularMLClassManager(ReceiptRegular.class);
+        WalletMLClassManager walletService = new WalletMLClassManager(Wallet.class);
 
         // define a coin
         Coin coin = new Coin();
@@ -124,15 +124,15 @@ public class AssistHandler {
    * 测试钱包相关API
    * @return
    */
-  public LASHandler<Request, Response> walletTransaction(){
-    return new LASHandler<Request, Response>() {
+  public MLHandler<Request, Response> walletTransaction(){
+    return new MLHandler<Request, Response>() {
       @Override
       public Response handle(Request request) {
-        Response<String> response = new LASResponse<>(String.class);
+        Response<String> response = new MLResponse<>(String.class);
 
-        AssistLASClassManager<Coin> coinService = new AssistLASClassManagerImpl<>(Coin.class);
-        ReceiptRegularLASClassManager receiptRegularService = new ReceiptRegularLASClassManager(ReceiptRegular.class);
-        WalletLASClassManager walletService = new WalletLASClassManager(Wallet.class);
+        AssistMLClassManager<Coin> coinService = new AssistMLClassManagerImpl<>(Coin.class);
+        ReceiptRegularMLClassManager receiptRegularService = new ReceiptRegularMLClassManager(ReceiptRegular.class);
+        WalletMLClassManager walletService = new WalletMLClassManager(Wallet.class);
 
         // define a coin
         Coin coin = new Coin();
