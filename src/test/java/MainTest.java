@@ -10,9 +10,9 @@ import org.junit.Test;
  */
 public class MainTest extends TestCloudCode {
 
-//	public MainTest(){
-//		super("http://api.leap.as/2.0");
-//	}
+	public MainTest() throws Exception {
+		super("http://10.10.10.193:8080");
+	}
 
 	@Test
 	public void hello(){

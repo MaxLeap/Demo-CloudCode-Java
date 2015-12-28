@@ -1,6 +1,7 @@
 package handler;
 
 import com.maxleap.code.*;
+import com.maxleap.code.assist.classes.PushMsgBuilder;
 import com.maxleap.code.impl.MLResponse;
 import com.maxleap.code.impl.PushMsg;
 import com.maxleap.code.impl.ThemisImpl;
@@ -24,7 +25,9 @@ public class ThemisHandler {
       @Override
       public Response handle(Request request) {
         PushMsg pushMsg = new PushMsg();
-        pushMsg.withInstallationId("aaa").withMsg("hello").push();
+        pushMsg.withInstallationId("aaa")
+            .withMsg("hello")
+            .push();
         MLResponse response = new MLResponse(String.class);
         response.setResult("OK");
         return response;

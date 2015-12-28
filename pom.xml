@@ -9,7 +9,7 @@
   <version>2.4.0</version>
 
   <properties>
-    <sdk.version>2.4.1</sdk.version>
+    <sdk.version>2.4.4</sdk.version>
     <junit.version>4.11</junit.version>
   </properties>
 

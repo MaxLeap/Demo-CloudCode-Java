@@ -1,10 +1,10 @@
 {
     "applicationName" : "helloword",//MaxLeap应用名称
-    "applicationId": "5609fe7da5ff7f00012ce481",//Application ID
-    "applicationKey": "TzZhQ1NJSS1WUmdFNUp1UTdISHV3QQ",//Master Key
+    "applicationId": "55598fd560b2f98aa901b619",//Application ID
+    "applicationKey": "dWhNN2V0eVlYNTdBSDF2elJKUHhpUQ",//Master Key
     "lang" : "java",//开发语言
     "javaMain": "Main",//入口main函数类名
     "packageHook" : "hook",//Hook包名
     "packageClasses" : "bean",//Class实体包名
-    "version":"0.3.4"//当前云代码项目版本号
+    "version":"0.3.6"//当前云代码项目版本号
 }
