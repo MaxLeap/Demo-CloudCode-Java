@@ -1,6 +1,7 @@
 import com.maxleap.code.Response;
 import com.maxleap.code.impl.MLJsonParser;
 import com.maxleap.code.test.framework.TestCloudCode;
+import com.maxleap.code.test.http.HTTPServerMock;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +13,11 @@ public class MainTest extends TestCloudCode {
 
 	public MainTest() throws Exception {
 		super("http://10.10.10.193:8080");
+	}
+
+	@Test
+	public void httpTest() throws Exception {
+		new HTTPServerMock(new MainTest());
 	}
 
 	@Test
