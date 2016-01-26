@@ -15,6 +15,7 @@ public class NinjaHook extends MLClassManagerHookBase<Ninja> {
 
   @Override
   public BeforeResult<Ninja> beforeCreate(Ninja ninja, UserPrincipal userPrincipal) {
+    logger.info("hook before:"+MLJsonParser.asJson(userPrincipal));
     MLClassManager<Ninja> ninjaZEntityManager = MLClassManagerFactory.getManager(Ninja.class);
     //创建忍者前验证是否重名了
     MLQuery sunQuery = MLQuery.instance();

@@ -30,7 +30,9 @@ public class NinjaHandler {
       @Override
       public Response handle(Request request) {
         UserPrincipal userPrincipal = request.getUserPrincipal();
+        LOGGER.info(request.parameter(String.class));
         Ninja ninja = request.parameter(Ninja.class);
+        LOGGER.info(ninja.toString());
         String name = ninja.getName();
         //产生本体
         SaveResult<Ninja> saveMsg = ninjaZEntityManager.create(ninja, userPrincipal);
